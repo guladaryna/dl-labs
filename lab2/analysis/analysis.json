@@ -1,0 +1,77 @@
+{
+  "validation": {
+    "n": 56961,
+    "n_fraud": 98,
+    "n_candidates": 55945,
+    "n_thresholds_with_min_cost": 1,
+    "t_star": 0.03119388222694397,
+    "roc_auc": 0.9733178958233664,
+    "summary": [
+      {
+        "rule": "Стандартний поріг",
+        "threshold": 0.5,
+        "TP": 71,
+        "FP": 9,
+        "FN": 27,
+        "TN": 56854,
+        "C": 279,
+        "precision": 0.8875,
+        "recall": 0.7244897959183674
+      },
+      {
+        "rule": "Мінімум вартості",
+        "threshold": 0.03119388222694397,
+        "TP": 82,
+        "FP": 34,
+        "FN": 16,
+        "TN": 56829,
+        "C": 194,
+        "precision": 0.7068965517241379,
+        "recall": 0.8367346938775511
+      },
+      {
+        "rule": "Усі негативні",
+        "threshold": "inf",
+        "TP": 0,
+        "FP": 0,
+        "FN": 98,
+        "TN": 56863,
+        "C": 980,
+        "precision": null,
+        "recall": 0.0
+      }
+    ]
+  },
+  "small_checks": {
+    "A": {
+      "n": 6,
+      "n_candidates": 6,
+      "t_star_brute_force": 0.4,
+      "t_star_fast": 0.4,
+      "same_candidates": true,
+      "same_counts_and_costs": true,
+      "same_threshold": true,
+      "passed": true
+    },
+    "B": {
+      "n": 3,
+      "n_candidates": 4,
+      "t_star_brute_force": "inf",
+      "t_star_fast": "inf",
+      "same_candidates": true,
+      "same_counts_and_costs": true,
+      "same_threshold": true,
+      "passed": true
+    },
+    "C": {
+      "n": 13,
+      "n_candidates": 4,
+      "t_star_brute_force": 0.8,
+      "t_star_fast": 0.8,
+      "same_candidates": true,
+      "same_counts_and_costs": true,
+      "same_threshold": true,
+      "passed": true
+    }
+  }
+}
