@@ -2,6 +2,9 @@
 
     uv run python analyze.py --saved results --out analysis
 
+Необов'язково: --compare <тека> звіряє поділ і статистики стандартизації з іншим запуском
+train.py (перевірка відтворюваності повторного навчання).
+
 Порядок суворий: validation (пункт 2) -> перевірки на наборах A/B/C (пункт 3) -> test (пункт 4).
 Якщо хоч одна перевірка не пройшла, програма зупиняється і оцінки test не читає.
 """
@@ -178,12 +181,171 @@ def run_small_checks(out: Path) -> dict:
     return report
 
 
+# ---------- Пункт 4: test ----------
+
+
+def analyze_test(saved: dict[str, np.ndarray], t_star: float) -> tuple[dict, pd.DataFrame]:
+    """Застосувати зафіксований t* до test: матриця плутанини, C, precision, recall, помилки.
+
+    Викликається лише після трьох перевірок. Поріг сюди приходить готовим і не змінюється.
+    """
+    y = saved["test_y"]
+    s = saved["test_scores"].astype(np.float64)
+    csv_row = saved["test_row_ids"]
+    amount = saved["test_amount"]
+
+    counts = confusion_counts(y, s, t_star)
+    precision, recall = precision_recall(counts)
+    print(f"\n[4] Test, t* = {t_star!r} (зафіксовано на validation)")
+    print("    " + "  ".join(f"{k}={counts[k]}" for k in COUNT_COLUMNS))
+    print(f"    precision = {precision}, recall = {recall}")
+
+    # Для порівняння у висновках: ті самі лічильники за порогів 0,5 і +inf.
+    # Це лише звіт; на вибір порога вони не впливають — t* уже зафіксовано.
+    reference = [
+        {"rule": name, "threshold": threshold_for_json(t), **confusion_counts(y, s, t)}
+        for name, t in (("Стандартний поріг", 0.5), ("Усі негативні", np.inf))
+    ]
+
+    pred = s >= t_star
+    masks = {"FP": pred & (y == 0), "FN": ~pred & (y == 1)}
+    error_rows = []
+    all_errors = {}
+    for kind, mask in masks.items():
+        idx = np.flatnonzero(mask)
+        idx = idx[np.argsort(csv_row[idx])]  # за номером рядка CSV (від 0, без заголовка)
+        # Зведення за ВСІМА помилками цього типу — щоб не судити лише за п'ятьма прикладами.
+        all_errors[kind] = {
+            "count": len(idx),
+            "median_amount": float(np.median(amount[idx])) if len(idx) else None,
+            "median_abs_distance": float(np.median(np.abs(s[idx] - t_star))) if len(idx) else None,
+        }
+        for i in idx[:5]:  # перші п'ять; якщо менше — усі
+            error_rows.append(
+                {"csv_row": int(csv_row[i]), "type": kind, "label": int(y[i]),
+                 "score": float(s[i]), "amount": float(amount[i]),
+                 "score_minus_threshold": float(s[i] - t_star)}
+            )
+    errors = pd.DataFrame(error_rows)
+    print(errors.to_string(index=False))
+    result = {
+        "n": len(y),
+        "n_fraud": int(np.count_nonzero(y == 1)),
+        "threshold": t_star,
+        **counts,
+        "precision": precision,
+        "recall": recall,
+        "reference_only": reference,
+        "all_errors": all_errors,
+    }
+    return result, errors
+
+
+# ---------- Таблиці для README і звірка двох запусків ----------
+
+
+def md_table(headers: list[str], rows: list[list]) -> str:
+    lines = ["| " + " | ".join(headers) + " |", "|" + "---|" * len(headers)]
+    lines += ["| " + " | ".join(str(v) for v in row) + " |" for row in rows]
+    return "\n".join(lines) + "\n"
+
+
+def show_threshold(t) -> str:
+    """Округлення лише для відображення; повні значення — в analysis.json і CSV."""
+    return "+∞" if t == "inf" or np.isinf(t) else f"{t:.6f}"
+
+
+def show_metric(v) -> str:
+    return "не визначена" if v is None else f"{v:.4f}"
+
+
+def write_tables(results: dict, errors: pd.DataFrame, out: Path) -> None:
+    """Готові markdown-таблиці: README збирається з них, а не з пам'яті."""
+    parts = ["## Поділ\n\n" + md_table(
+        ["Частина", "Об'єктів", "Шахрайських", "Частка"],
+        [[r["split"], r["n"], r["n_fraud"], f"{r['fraction']:.6f}"] for r in results["split"]],
+    )]
+    parts.append("## Validation\n\n" + md_table(
+        ["Правило на validation", "Поріг", "TP", "FP", "FN", "TN", "C", "precision", "recall"],
+        [[r["rule"], show_threshold(r["threshold"]), *(r[k] for k in COUNT_COLUMNS),
+          show_metric(r["precision"]), show_metric(r["recall"])]
+         for r in results["validation"]["summary"]],
+    ))
+    checks = pd.read_csv(out / "small_checks.csv")
+    for name, group in checks.groupby("set"):
+        report = results["small_checks"][name]
+        parts.append(f"## Набір {name}\n\n" + md_table(
+            ["Поріг", "TP", "FP", "FN", "TN", "C", "Швидкий: TP/FP/FN/TN/C", "Вибрано"],
+            [["+∞" if np.isinf(r["threshold"]) else r["threshold"],
+              *(r[k] for k in COUNT_COLUMNS),
+              "/".join(str(r[f"{k}_fast"]) for k in COUNT_COLUMNS),
+              "t*" if r["chosen_brute"] and r["chosen_fast"] else ""]
+             for _, r in group.iterrows()],
+        ) + f"\nt* перебором: {show_threshold(report['t_star_brute_force'])}, "
+            f"t* швидким: {show_threshold(report['t_star_fast'])}, "
+            f"перевірка {'пройдена' if report['passed'] else 'НЕ пройдена'}.\n")
+    test = results["test"]
+    parts.append("## Test\n\n" + md_table(
+        ["Поріг", "TP", "FP", "FN", "TN", "C", "precision", "recall"],
+        [[show_threshold(test["threshold"]), *(test[k] for k in COUNT_COLUMNS),
+          show_metric(test["precision"]), show_metric(test["recall"])]],
+    ))
+    parts.append("## Test, лише для порівняння\n\n" + md_table(
+        ["Правило", "Поріг", "TP", "FP", "FN", "TN", "C"],
+        [[r["rule"], show_threshold(r["threshold"]), *(r[k] for k in COUNT_COLUMNS)]
+         for r in test["reference_only"]],
+    ))
+    parts.append("## Помилки на test\n\n" + md_table(
+        ["Рядок CSV (від 0, без заголовка)", "Тип помилки", "Мітка", "Оцінка s", "Amount", "s − t*"],
+        [[r["csv_row"], r["type"], r["label"], f"{r['score']:.6f}", f"{r['amount']:.2f}",
+          f"{r['score_minus_threshold']:+.6f}"] for _, r in errors.iterrows()],
+    ))
+    (out / "tables.md").write_text("\n".join(parts), encoding="utf-8")
+
+
+def compare_runs(saved_dir: Path, other_dir: Path) -> None:
+    """Чи дає повторне навчання той самий поділ і ті самі статистики стандартизації."""
+    print(f"\n[порівняння] {saved_dir} <-> {other_dir}")
+    a, b = load_predictions(saved_dir), load_predictions(other_dir)
+    same_split = True
+    for name in ("train", "validation", "test"):
+        for key in (f"{name}_row_ids", f"{name}_y"):
+            equal = np.array_equal(a[key], b[key])
+            same_split = same_split and equal
+            print(f"    {key:<20} {'однакові' if equal else 'РІЗНІ'}")
+    same_scaler = True
+    with np.load(saved_dir / "preprocessing.npz") as pa, np.load(other_dir / "preprocessing.npz") as pb:
+        for key in ("mean", "scale"):
+            equal = np.array_equal(pa[key], pb[key])
+            same_scaler = same_scaler and equal
+            print(f"    scaler.{key:<13} {'однакові' if equal else 'РІЗНІ'} "
+                  f"(макс. різниця {np.max(np.abs(pa[key] - pb[key])):.3g})")
+    # Оцінки можуть відрізнятися в молодших розрядах (версія PyTorch, платформа) — це лише довідка.
+    for name in ("validation", "test"):
+        diff = np.max(np.abs(a[f"{name}_scores"].astype(np.float64) - b[f"{name}_scores"]))
+        print(f"    {name}_scores: макс. різниця {diff:.3g} (збіг не вимагається)")
+    if not (same_split and same_scaler):
+        raise SystemExit("ПОМИЛКА: поділ або статистики стандартизації не відтворилися.")
+    print("    Поділ і статистики стандартизації відтворилися точно.")
+
+
+def split_table(saved: dict[str, np.ndarray]) -> list[dict]:
+    rows = []
+    for name in ("train", "validation", "test"):
+        y = saved[f"{name}_y"]
+        n_fraud = int(np.count_nonzero(y == 1))
+        rows.append({"split": name, "n": len(y), "n_fraud": n_fraud, "fraction": n_fraud / len(y)})
+    return rows
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--saved", type=Path, required=True,
                         help="Тека зі збереженими прогнозами (вивід train.py)")
     parser.add_argument("--out", type=Path, required=True, help="Тека для результатів аналізу")
+    parser.add_argument("--compare", type=Path,
+                        help="Тека іншого запуску train.py: звірити поділ і стандартизацію")
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
@@ -195,17 +357,27 @@ def main() -> None:
     y_val = saved["validation_y"]
     s_val = saved["validation_scores"].astype(np.float64)
 
-    results = {"validation": analyze_validation(y_val, s_val, args.out)}
+    results = {"split": split_table(saved)}
+    results["validation"] = analyze_validation(y_val, s_val, args.out)
 
     results["small_checks"] = run_small_checks(args.out)
     if not all(check["passed"] for check in results["small_checks"].values()):
         raise SystemExit("ПОМИЛКА: перевірка на малих наборах не пройдена. До test не переходимо.")
     print("    Усі три перевірки пройдено.")
 
+    # Лише тепер читаємо оцінки test. Поріг уже зафіксовано на validation.
+    t_star = results["validation"]["t_star"]
+    results["test"], errors = analyze_test(saved, t_star)
+    errors.to_csv(args.out / "test_errors.csv", index=False)
+
     (args.out / "analysis.json").write_text(
         json.dumps(results, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8"
     )
+    write_tables(results, errors, args.out)
     print(f"\nРезультати збережено: {args.out.resolve()}")
+
+    if args.compare is not None:
+        compare_runs(args.saved, args.compare)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,24 @@
 {
+  "split": [
+    {
+      "split": "train",
+      "n": 170884,
+      "n_fraud": 295,
+      "fraction": 0.0017263172678542169
+    },
+    {
+      "split": "validation",
+      "n": 56961,
+      "n_fraud": 98,
+      "fraction": 0.0017204754130018785
+    },
+    {
+      "split": "test",
+      "n": 56962,
+      "n_fraud": 99,
+      "fraction": 0.0017380007724447878
+    }
+  ],
   "validation": {
     "n": 56961,
     "n_fraud": 98,
@@ -72,6 +92,50 @@
       "same_counts_and_costs": true,
       "same_threshold": true,
       "passed": true
+    }
+  },
+  "test": {
+    "n": 56962,
+    "n_fraud": 99,
+    "threshold": 0.03119388222694397,
+    "TP": 80,
+    "FP": 43,
+    "FN": 19,
+    "TN": 56820,
+    "C": 233,
+    "precision": 0.6504065040650406,
+    "recall": 0.8080808080808081,
+    "reference_only": [
+      {
+        "rule": "Стандартний поріг",
+        "threshold": 0.5,
+        "TP": 71,
+        "FP": 8,
+        "FN": 28,
+        "TN": 56855,
+        "C": 288
+      },
+      {
+        "rule": "Усі негативні",
+        "threshold": "inf",
+        "TP": 0,
+        "FP": 0,
+        "FN": 99,
+        "TN": 56863,
+        "C": 990
+      }
+    ],
+    "all_errors": {
+      "FP": {
+        "count": 43,
+        "median_amount": 2.49,
+        "median_abs_distance": 0.024989958852529526
+      },
+      "FN": {
+        "count": 19,
+        "median_amount": 33.76,
+        "median_abs_distance": 0.029118295526131988
+      }
     }
   }
 }
