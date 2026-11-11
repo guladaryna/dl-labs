@@ -1,0 +1,5 @@
+tasks/
+**/DEFENSE.md
+*.onnx
+.venv/
+__pycache__/
