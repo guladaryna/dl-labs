@@ -1,0 +1,78 @@
+{
+  "mode": "correct",
+  "n_train": 105,
+  "loss_numpy": 1.4562007801142816,
+  "loss_pytorch": 1.4562007801142818,
+  "torch_tolerance": 1e-12,
+  "torch_comparison": [
+    {
+      "name": "Втрата",
+      "max_abs_diff": 2.220446049250313e-16,
+      "finite": true,
+      "passed": true
+    },
+    {
+      "name": "Градієнт W1",
+      "max_abs_diff": 2.7755575615628914e-17,
+      "finite": true,
+      "passed": true
+    },
+    {
+      "name": "Градієнт b1",
+      "max_abs_diff": 3.9898639947466563e-17,
+      "finite": true,
+      "passed": true
+    },
+    {
+      "name": "Градієнт W2",
+      "max_abs_diff": 5.551115123125783e-17,
+      "finite": true,
+      "passed": true
+    },
+    {
+      "name": "Градієнт b2",
+      "max_abs_diff": 1.3877787807814457e-16,
+      "finite": true,
+      "passed": true
+    }
+  ],
+  "eps": 1e-06,
+  "numeric_tolerance": 1e-07,
+  "numeric_check": [
+    {
+      "name": "W1[0, 0]",
+      "g_manual": -0.019920184330555316,
+      "g_num": -0.019920184390898044,
+      "abs_diff": 6.03427273426771e-11,
+      "passed": true
+    },
+    {
+      "name": "b1[0]",
+      "g_manual": -0.07056611158437998,
+      "g_num": -0.0705661116207068,
+      "abs_diff": 3.632683043264251e-11,
+      "passed": true
+    },
+    {
+      "name": "W2[0, 0]",
+      "g_manual": 0.13523020860547605,
+      "g_num": 0.13523020869765645,
+      "abs_diff": 9.218040220027035e-11,
+      "passed": true
+    },
+    {
+      "name": "b2[0]",
+      "g_manual": 0.08552164484195578,
+      "g_num": 0.08552164498798476,
+      "abs_diff": 1.460289805743642e-10,
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "versions": {
+    "python": "3.12.16",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "torch": "2.15.0+cpu"
+  }
+}
