@@ -3,3 +3,5 @@ tasks/
 *.onnx
 .venv/
 __pycache__/
+creditcard.csv
+lab2/results_rerun/
