@@ -4,6 +4,7 @@
     uv run main.py --bug    дослід із навмисною помилкою (пункт 4 умови)
 
 Результати друкуються і зберігаються в results/correct.json або results/bug.json.
+Кожен запуск також оновлює графіки results/checks.png і results/gradient_ratio.png.
 """
 
 import argparse
@@ -18,6 +19,7 @@ import torch
 
 from data import check_data, prepare_data
 from net import PARAM_NAMES, backward, compute_loss, cross_entropy, forward, init_params
+from plots import make_plots
 from torch_ref import torch_loss_and_grads
 
 EXPECTED_SHAPES = {"W1": (4, 8), "b1": (8,), "W2": (8, 3), "b2": (3,)}
@@ -104,12 +106,15 @@ def gradient_ratio(grads_np, grads_pt):
     b = np.concatenate([grads_pt[name].ravel() for name in PARAM_NAMES])  # (67,)
     nonzero = b != 0
     ratio = a[nonzero] / b[nonzero]
+    # те саме відношення для кожного з 67 елементів — для графіка (None, де еталон нульовий)
+    per_element = [float(a[i] / b[i]) if nonzero[i] else None for i in range(a.size)]
     result = {
         "n_elements": int(a.size),
         "n_nonzero_reference": int(nonzero.sum()),
         "n_zero_in_both": int(((a == 0) & (b == 0)).sum()),
         "ratio_min": float(ratio.min()),
         "ratio_max": float(ratio.max()),
+        "ratio_per_element": per_element,
     }
     print("== Відношення градієнт NumPy / градієнт PyTorch ==")
     print(f"елементів градієнта: {result['n_elements']}, з них ненульових в еталоні: "
@@ -214,6 +219,10 @@ def main():
             "torch": torch.__version__,
         },
     })
+
+    # графіки малюються зі збережених json обох режимів (тих, що вже є в results/)
+    for path in make_plots(RESULTS_DIR):
+        print(f"Графік збережено: {path.relative_to(Path(__file__).parent).as_posix()}")
 
     if args.bug:
         # у досліді правильний результат — це виявлена помилка
