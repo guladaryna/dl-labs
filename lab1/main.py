@@ -66,7 +66,7 @@ def compare_with_torch(params, X, y, loss_np, grads_np):
     """Пункт 2: втрата і всі елементи чотирьох градієнтів проти PyTorch.
 
     Критерій для кожної пари чисел: |a - b| <= 1e-12, і всі числа скінченні.
-    Повертає втрату PyTorch і список рядків таблиці.
+    Повертає втрату PyTorch, градієнти PyTorch і список рядків таблиці.
     """
     loss_pt, grads_pt = torch_loss_and_grads(params, X, y)
 
@@ -91,7 +91,32 @@ def compare_with_torch(params, X, y, loss_np, grads_np):
     for r in rows:
         print(f"| {r['name']} | {r['max_abs_diff']:.3e} | {yes_no(r['passed'])} |")
     print()
-    return loss_pt, rows
+    return loss_pt, grads_pt, rows
+
+
+def gradient_ratio(grads_np, grads_pt):
+    """У скільки разів ручні градієнти відрізняються від еталонних.
+
+    Відношення рахується поелементно лише там, де еталонний градієнт ненульовий.
+    Для правильної реалізації воно дорівнює 1; у досліді показує масштаб помилки.
+    """
+    a = np.concatenate([grads_np[name].ravel() for name in PARAM_NAMES])  # (67,)
+    b = np.concatenate([grads_pt[name].ravel() for name in PARAM_NAMES])  # (67,)
+    nonzero = b != 0
+    ratio = a[nonzero] / b[nonzero]
+    result = {
+        "n_elements": int(a.size),
+        "n_nonzero_reference": int(nonzero.sum()),
+        "n_zero_in_both": int(((a == 0) & (b == 0)).sum()),
+        "ratio_min": float(ratio.min()),
+        "ratio_max": float(ratio.max()),
+    }
+    print("== Відношення градієнт NumPy / градієнт PyTorch ==")
+    print(f"елементів градієнта: {result['n_elements']}, з них ненульових в еталоні: "
+          f"{result['n_nonzero_reference']}, нульових в обох: {result['n_zero_in_both']}")
+    print(f"відношення на ненульових: min = {result['ratio_min']:.12f}, max = {result['ratio_max']:.12f}")
+    print()
+    return result
 
 
 def numerical_derivative(params, X, y, name, index):
@@ -165,7 +190,8 @@ def main():
 
     # ваги між перевірками не оновлюються: усе рахується на початкових параметрах
     loss_np, grads_np = run_numpy(params, X, y, divide_by_n=not args.bug)
-    loss_pt, torch_rows = compare_with_torch(params, X, y, loss_np, grads_np)
+    loss_pt, grads_pt, torch_rows = compare_with_torch(params, X, y, loss_np, grads_np)
+    ratio = gradient_ratio(grads_np, grads_pt)
     numeric_rows = numerical_check(params, X, y, grads_np)
 
     all_passed = all(r["passed"] for r in torch_rows + numeric_rows)
@@ -176,6 +202,7 @@ def main():
         "loss_pytorch": loss_pt,
         "torch_tolerance": TORCH_TOL,
         "torch_comparison": torch_rows,
+        "gradient_ratio_numpy_to_pytorch": ratio,
         "eps": EPS,
         "numeric_tolerance": NUM_TOL,
         "numeric_check": numeric_rows,

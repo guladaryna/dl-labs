@@ -36,6 +36,13 @@
       "passed": true
     }
   ],
+  "gradient_ratio_numpy_to_pytorch": {
+    "n_elements": 67,
+    "n_nonzero_reference": 67,
+    "n_zero_in_both": 0,
+    "ratio_min": 0.9999999999999983,
+    "ratio_max": 1.0000000000000198
+  },
   "eps": 1e-06,
   "numeric_tolerance": 1e-07,
   "numeric_check": [
