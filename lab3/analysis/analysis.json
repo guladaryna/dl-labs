@@ -1,0 +1,315 @@
+{
+  "split_sha256": "b827abdece5aaebda23cfa5129c99f8aecbdef3ef27dce5c9ae53b88aab45d46",
+  "runs": [
+    {
+      "n": 1,
+      "regime": "scratch",
+      "seed": 1,
+      "train_loss_8": 0.996094175974528,
+      "val_f1_8": 0.37930871026132434,
+      "train_seconds": 50.9768396000145,
+      "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+      "uncommitted": false,
+      "device": "NVIDIA GeForce MX550"
+    },
+    {
+      "n": 2,
+      "regime": "frozen",
+      "seed": 1,
+      "train_loss_8": 0.16545252283414205,
+      "val_f1_8": 0.8842012435043274,
+      "train_seconds": 20.26414809995913,
+      "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+      "uncommitted": false,
+      "device": "NVIDIA GeForce MX550"
+    },
+    {
+      "n": 3,
+      "regime": "frozen",
+      "seed": 2,
+      "train_loss_8": 0.17565551737944285,
+      "val_f1_8": 0.8785003294351141,
+      "train_seconds": 20.154456200019922,
+      "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+      "uncommitted": false,
+      "device": "NVIDIA GeForce MX550"
+    },
+    {
+      "n": 4,
+      "regime": "frozen",
+      "seed": 3,
+      "train_loss_8": 0.18958305339018502,
+      "val_f1_8": 0.8885955696095422,
+      "train_seconds": 20.545615200011525,
+      "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+      "uncommitted": false,
+      "device": "NVIDIA GeForce MX550"
+    },
+    {
+      "n": 5,
+      "regime": "unfreeze",
+      "seed": 1,
+      "train_loss_8": 0.05583678146203359,
+      "val_f1_8": 0.8554275023924176,
+      "train_seconds": 27.510687000030885,
+      "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+      "uncommitted": false,
+      "device": "NVIDIA GeForce MX550"
+    },
+    {
+      "n": 6,
+      "regime": "unfreeze",
+      "seed": 2,
+      "train_loss_8": 0.08995827234660586,
+      "val_f1_8": 0.8822718645681823,
+      "train_seconds": 27.834578199952375,
+      "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+      "uncommitted": false,
+      "device": "NVIDIA GeForce MX550"
+    },
+    {
+      "n": 7,
+      "regime": "unfreeze",
+      "seed": 3,
+      "train_loss_8": 0.10827332766105731,
+      "val_f1_8": 0.8834213085646941,
+      "train_seconds": 27.886685399978887,
+      "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+      "uncommitted": false,
+      "device": "NVIDIA GeForce MX550"
+    }
+  ],
+  "effects": {
+    "F": {
+      "scratch": [
+        0.37930871026132434
+      ],
+      "frozen": [
+        0.8842012435043274,
+        0.8785003294351141,
+        0.8885955696095422
+      ],
+      "unfreeze": [
+        0.8554275023924176,
+        0.8822718645681823,
+        0.8834213085646941
+      ]
+    },
+    "mean": {
+      "scratch": 0.37930871026132434,
+      "frozen": 0.8837657141829945,
+      "unfreeze": 0.8737068918417646
+    },
+    "range": {
+      "frozen": 0.010095240174428088,
+      "unfreeze": 0.027993806172276536
+    },
+    "R": 0.027993806172276536,
+    "delta_pre": 0.5044570039216703,
+    "delta_unf": -0.0100588223412299,
+    "total_gain": 0.49439818158044035,
+    "delta_pre_exceeds_R": true,
+    "delta_unf_exceeds_R": false
+  },
+  "selection": {
+    "regime": "frozen",
+    "seed": 3,
+    "lab3_model_matches": true,
+    "val_logits_cpu_vs_saved_max_abs_diff": 4.1484832763671875e-05,
+    "val_argmax_agreement": 1.0,
+    "val_macro_f1_cpu": 0.8885955696095422,
+    "val_macro_f1_logged": 0.8885955696095422
+  },
+  "test": {
+    "n": 1502,
+    "macro_f1": 0.891912624642122,
+    "accuracy": 0.8901464713715047,
+    "se_accuracy": 0.008068685291986602,
+    "test_minus_val": 0.00331705503257973,
+    "confusion_matrix": [
+      [
+        187,
+        2,
+        0,
+        1,
+        2,
+        27
+      ],
+      [
+        0,
+        237,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        215,
+        49,
+        10,
+        2
+      ],
+      [
+        1,
+        0,
+        40,
+        212,
+        10,
+        0
+      ],
+      [
+        2,
+        1,
+        1,
+        1,
+        250,
+        0
+      ],
+      [
+        12,
+        0,
+        0,
+        2,
+        1,
+        236
+      ]
+    ],
+    "top_error_pairs": [
+      {
+        "count": 49,
+        "true": "glacier",
+        "pred": "mountain"
+      },
+      {
+        "count": 40,
+        "true": "mountain",
+        "pred": "glacier"
+      },
+      {
+        "count": 27,
+        "true": "buildings",
+        "pred": "street"
+      },
+      {
+        "count": 12,
+        "true": "street",
+        "pred": "buildings"
+      },
+      {
+        "count": 10,
+        "true": "glacier",
+        "pred": "sea"
+      },
+      {
+        "count": 10,
+        "true": "mountain",
+        "pred": "sea"
+      },
+      {
+        "count": 2,
+        "true": "buildings",
+        "pred": "forest"
+      },
+      {
+        "count": 2,
+        "true": "buildings",
+        "pred": "sea"
+      },
+      {
+        "count": 2,
+        "true": "glacier",
+        "pred": "street"
+      },
+      {
+        "count": 2,
+        "true": "sea",
+        "pred": "buildings"
+      },
+      {
+        "count": 2,
+        "true": "street",
+        "pred": "mountain"
+      },
+      {
+        "count": 1,
+        "true": "buildings",
+        "pred": "mountain"
+      },
+      {
+        "count": 1,
+        "true": "glacier",
+        "pred": "forest"
+      },
+      {
+        "count": 1,
+        "true": "mountain",
+        "pred": "buildings"
+      },
+      {
+        "count": 1,
+        "true": "sea",
+        "pred": "forest"
+      },
+      {
+        "count": 1,
+        "true": "sea",
+        "pred": "glacier"
+      },
+      {
+        "count": 1,
+        "true": "sea",
+        "pred": "mountain"
+      },
+      {
+        "count": 1,
+        "true": "street",
+        "pred": "sea"
+      }
+    ],
+    "errors": [
+      {
+        "file": "20179.jpg",
+        "true": "glacier",
+        "pred": "mountain",
+        "prob": 0.8772451877593994,
+        "count": 49
+      },
+      {
+        "file": "20116.jpg",
+        "true": "mountain",
+        "pred": "glacier",
+        "prob": 0.6006909012794495,
+        "count": 40
+      },
+      {
+        "file": "20083.jpg",
+        "true": "buildings",
+        "pred": "street",
+        "prob": 0.5937610864639282,
+        "count": 27
+      },
+      {
+        "file": "20353.jpg",
+        "true": "street",
+        "pred": "buildings",
+        "prob": 0.8439236879348755,
+        "count": 12
+      },
+      {
+        "file": "20243.jpg",
+        "true": "glacier",
+        "pred": "sea",
+        "prob": 0.8064789175987244,
+        "count": 10
+      }
+    ]
+  },
+  "versions": {
+    "python": "3.12.16",
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "2.5.5"
+  }
+}
