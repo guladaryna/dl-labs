@@ -1,0 +1,3 @@
+split.csv -text
+*.npy binary
+*.pt binary
