@@ -5,3 +5,5 @@ tasks/
 __pycache__/
 creditcard.csv
 lab2/results_rerun/
+CLAUDE.md
+.claude/
