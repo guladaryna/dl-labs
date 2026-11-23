@@ -1,0 +1,594 @@
+{
+  "split_check": {
+    "train": {
+      "count": 1200,
+      "name_sum": 11993084,
+      "expected_count": 1200,
+      "expected_name_sum": 11993084,
+      "match": true
+    },
+    "test": {
+      "count": 1502,
+      "name_sum": 33351444,
+      "expected_count": 1502,
+      "expected_name_sum": 33351444,
+      "match": true
+    }
+  },
+  "model": {
+    "path": "../lab3/lab3_model.pt",
+    "regime": "frozen",
+    "seed": 3,
+    "classes": [
+      "buildings",
+      "forest",
+      "glacier",
+      "mountain",
+      "sea",
+      "street"
+    ],
+    "img_size": 160
+  },
+  "export": {
+    "file": "lab4_fp32.onnx",
+    "export_time_s": 0.5612683999934234,
+    "file_mb": 44.708866,
+    "op_counts": {
+      "Conv": 20,
+      "Relu": 17,
+      "MaxPool": 1,
+      "Add": 8,
+      "GlobalAveragePool": 1,
+      "Flatten": 1,
+      "Gemm": 1
+    },
+    "n_conv": 20,
+    "n_batchnorm": 0,
+    "max_abs_logit_diff": 1.1682510375976562e-05,
+    "class_match": 1.0,
+    "macro_f1_pytorch": 0.891912624642122,
+    "macro_f1_onnx_fp32": 0.891912624642122,
+    "macro_f1_lab3": 0.891912624642122,
+    "checks": {
+      "max_logit_diff_below_1e-3": true,
+      "class_match_is_1": true,
+      "f1_torch_equals_onnx": true,
+      "f1_equals_lab3": true,
+      "conv_is_20": true,
+      "batchnorm_is_0": true
+    }
+  },
+  "calibration": {
+    "count": 200,
+    "name_sum": 1921470,
+    "per_class": {
+      "buildings": 40,
+      "forest": 35,
+      "glacier": 36,
+      "mountain": 33,
+      "sea": 29,
+      "street": 27
+    },
+    "match": true,
+    "files": [
+      "5521.jpg",
+      "18238.jpg",
+      "8634.jpg",
+      "12570.jpg",
+      "18419.jpg",
+      "3561.jpg",
+      "12727.jpg",
+      "6801.jpg",
+      "17611.jpg",
+      "17712.jpg",
+      "18266.jpg",
+      "12426.jpg",
+      "12679.jpg",
+      "3104.jpg",
+      "13304.jpg",
+      "16620.jpg",
+      "3284.jpg",
+      "8208.jpg",
+      "15827.jpg",
+      "14256.jpg",
+      "13054.jpg",
+      "5616.jpg",
+      "11934.jpg",
+      "8340.jpg",
+      "8204.jpg",
+      "6123.jpg",
+      "3649.jpg",
+      "6763.jpg",
+      "8563.jpg",
+      "2232.jpg",
+      "2108.jpg",
+      "1094.jpg",
+      "18380.jpg",
+      "11910.jpg",
+      "8216.jpg",
+      "14931.jpg",
+      "11466.jpg",
+      "10796.jpg",
+      "16065.jpg",
+      "4075.jpg",
+      "16426.jpg",
+      "13347.jpg",
+      "1001.jpg",
+      "2531.jpg",
+      "16309.jpg",
+      "19036.jpg",
+      "2179.jpg",
+      "19412.jpg",
+      "8460.jpg",
+      "7599.jpg",
+      "6747.jpg",
+      "9601.jpg",
+      "13338.jpg",
+      "11764.jpg",
+      "16296.jpg",
+      "10831.jpg",
+      "16307.jpg",
+      "2566.jpg",
+      "14202.jpg",
+      "4958.jpg",
+      "9714.jpg",
+      "16600.jpg",
+      "6197.jpg",
+      "1818.jpg",
+      "1555.jpg",
+      "3188.jpg",
+      "9910.jpg",
+      "15261.jpg",
+      "19703.jpg",
+      "13185.jpg",
+      "12003.jpg",
+      "3210.jpg",
+      "2729.jpg",
+      "17085.jpg",
+      "1437.jpg",
+      "2578.jpg",
+      "9432.jpg",
+      "17600.jpg",
+      "1128.jpg",
+      "19778.jpg",
+      "7284.jpg",
+      "17786.jpg",
+      "7431.jpg",
+      "2929.jpg",
+      "12117.jpg",
+      "15477.jpg",
+      "14136.jpg",
+      "187.jpg",
+      "8481.jpg",
+      "3337.jpg",
+      "2710.jpg",
+      "13538.jpg",
+      "9256.jpg",
+      "5705.jpg",
+      "2486.jpg",
+      "153.jpg",
+      "8854.jpg",
+      "6268.jpg",
+      "1396.jpg",
+      "16316.jpg",
+      "18679.jpg",
+      "12046.jpg",
+      "15615.jpg",
+      "16453.jpg",
+      "10575.jpg",
+      "3143.jpg",
+      "9408.jpg",
+      "17287.jpg",
+      "2697.jpg",
+      "13775.jpg",
+      "8830.jpg",
+      "5908.jpg",
+      "6242.jpg",
+      "2648.jpg",
+      "1844.jpg",
+      "13860.jpg",
+      "18963.jpg",
+      "5202.jpg",
+      "5477.jpg",
+      "3307.jpg",
+      "13322.jpg",
+      "13793.jpg",
+      "16334.jpg",
+      "416.jpg",
+      "8819.jpg",
+      "5136.jpg",
+      "18922.jpg",
+      "5033.jpg",
+      "19389.jpg",
+      "16752.jpg",
+      "19872.jpg",
+      "997.jpg",
+      "15885.jpg",
+      "11629.jpg",
+      "1514.jpg",
+      "16681.jpg",
+      "6883.jpg",
+      "14022.jpg",
+      "16661.jpg",
+      "690.jpg",
+      "17370.jpg",
+      "8818.jpg",
+      "8169.jpg",
+      "7311.jpg",
+      "1058.jpg",
+      "4571.jpg",
+      "8231.jpg",
+      "5937.jpg",
+      "17178.jpg",
+      "1236.jpg",
+      "17624.jpg",
+      "15784.jpg",
+      "3964.jpg",
+      "10036.jpg",
+      "1926.jpg",
+      "7445.jpg",
+      "10355.jpg",
+      "8884.jpg",
+      "11143.jpg",
+      "6152.jpg",
+      "7955.jpg",
+      "16470.jpg",
+      "16717.jpg",
+      "3680.jpg",
+      "18838.jpg",
+      "10281.jpg",
+      "6569.jpg",
+      "14349.jpg",
+      "11253.jpg",
+      "2562.jpg",
+      "390.jpg",
+      "4090.jpg",
+      "6600.jpg",
+      "4803.jpg",
+      "13943.jpg",
+      "12963.jpg",
+      "5341.jpg",
+      "8847.jpg",
+      "8256.jpg",
+      "14216.jpg",
+      "5716.jpg",
+      "5082.jpg",
+      "2600.jpg",
+      "1642.jpg",
+      "13843.jpg",
+      "20026.jpg",
+      "6307.jpg",
+      "3538.jpg",
+      "14245.jpg",
+      "11190.jpg",
+      "11160.jpg",
+      "18965.jpg",
+      "4967.jpg",
+      "5563.jpg",
+      "8919.jpg",
+      "19192.jpg",
+      "1590.jpg",
+      "19905.jpg",
+      "2032.jpg",
+      "2809.jpg"
+    ]
+  },
+  "quantize": {
+    "file": "lab4_int8.onnx",
+    "pre_process_time_s": 0.33818020002217963,
+    "quantize_static_time_s": 2.9134475000028033,
+    "file_mb": 11.297049,
+    "op_counts": {
+      "DequantizeLinear": 75,
+      "QuantizeLinear": 33,
+      "Conv": 20,
+      "MaxPool": 1,
+      "Add": 8,
+      "GlobalAveragePool": 1,
+      "Flatten": 1,
+      "Gemm": 1
+    }
+  },
+  "quality": {
+    "n": 1502,
+    "fp32": {
+      "macro_f1": 0.891912624642122,
+      "accuracy": 0.8901464713715047,
+      "agreement": 1.0,
+      "b": 0,
+      "c": 0,
+      "delta_acc": 0.0,
+      "se_delta_acc": 0.0,
+      "noise_threshold_2sqrt_bc": 0.0,
+      "differs_from_noise": false
+    },
+    "int8": {
+      "macro_f1": 0.8797092506162301,
+      "accuracy": 0.8768308921438083,
+      "agreement": 0.9394141145139814,
+      "b": 34,
+      "c": 54,
+      "delta_acc": -0.013315579227696404,
+      "se_delta_acc": 0.0062455602660764714,
+      "noise_threshold_2sqrt_bc": 18.76166303929372,
+      "differs_from_noise": true
+    },
+    "se_single_model_fp32": 0.008068685291986602,
+    "se_ratio_single_to_paired": 1.2919073627089404,
+    "max_abs_logit_diff_int8_vs_fp32": 7.152653694152832,
+    "diagnostic_int8_qdq_simulated_in_float": {
+      "macro_f1": 0.889220111598218,
+      "accuracy": 0.8874833555259654,
+      "agreement": 0.9920106524633822,
+      "b": 4,
+      "c": 8,
+      "delta_acc": -0.002663115845539281,
+      "se_delta_acc": 0.0023063259754578925,
+      "noise_threshold_2sqrt_bc": 6.928203230275509,
+      "differs_from_noise": false,
+      "max_abs_logit_diff_vs_fp32": 2.165106773376465
+    }
+  },
+  "channel_ranges": {
+    "convs": [
+      {
+        "name": "/conv1/Conv",
+        "shape": [
+          64,
+          3,
+          7,
+          7
+        ],
+        "r": 6.668345928192139,
+        "log2_r": 2.7373289477469736
+      },
+      {
+        "name": "/layer1/layer1.0/conv1/Conv",
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "r": 2.033560276031494,
+        "log2_r": 1.024007753840584
+      },
+      {
+        "name": "/layer1/layer1.0/conv2/Conv",
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "r": 2.9204742908477783,
+        "log2_r": 1.5462026846836028
+      },
+      {
+        "name": "/layer1/layer1.1/conv1/Conv",
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "r": 2.1701557636260986,
+        "log2_r": 1.1177985962854582
+      },
+      {
+        "name": "/layer1/layer1.1/conv2/Conv",
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "r": 3.01077938079834,
+        "log2_r": 1.5901369963756704
+      },
+      {
+        "name": "/layer2/layer2.0/conv1/Conv",
+        "shape": [
+          128,
+          64,
+          3,
+          3
+        ],
+        "r": 2.5673861503601074,
+        "log2_r": 1.3603003022678595
+      },
+      {
+        "name": "/layer2/layer2.0/conv2/Conv",
+        "shape": [
+          128,
+          128,
+          3,
+          3
+        ],
+        "r": 3.0219762325286865,
+        "log2_r": 1.5954923139283415
+      },
+      {
+        "name": "/layer2/layer2.0/downsample/downsample.0/Conv",
+        "shape": [
+          128,
+          64,
+          1,
+          1
+        ],
+        "r": 4.39759635925293,
+        "log2_r": 2.136715190089113
+      },
+      {
+        "name": "/layer2/layer2.1/conv1/Conv",
+        "shape": [
+          128,
+          128,
+          3,
+          3
+        ],
+        "r": 2.244866371154785,
+        "log2_r": 1.1666295690599113
+      },
+      {
+        "name": "/layer2/layer2.1/conv2/Conv",
+        "shape": [
+          128,
+          128,
+          3,
+          3
+        ],
+        "r": 4.081693649291992,
+        "log2_r": 2.029167905243535
+      },
+      {
+        "name": "/layer3/layer3.0/conv1/Conv",
+        "shape": [
+          256,
+          128,
+          3,
+          3
+        ],
+        "r": 2.4244701862335205,
+        "log2_r": 1.2776695129887243
+      },
+      {
+        "name": "/layer3/layer3.0/conv2/Conv",
+        "shape": [
+          256,
+          256,
+          3,
+          3
+        ],
+        "r": 3.755074977874756,
+        "log2_r": 1.9088417144314667
+      },
+      {
+        "name": "/layer3/layer3.0/downsample/downsample.0/Conv",
+        "shape": [
+          256,
+          128,
+          1,
+          1
+        ],
+        "r": 4.920561790466309,
+        "log2_r": 2.2988230403714724
+      },
+      {
+        "name": "/layer3/layer3.1/conv1/Conv",
+        "shape": [
+          256,
+          256,
+          3,
+          3
+        ],
+        "r": 3.0322108268737793,
+        "log2_r": 1.6003700662765168
+      },
+      {
+        "name": "/layer3/layer3.1/conv2/Conv",
+        "shape": [
+          256,
+          256,
+          3,
+          3
+        ],
+        "r": 5.895690441131592,
+        "log2_r": 2.55966077633789
+      },
+      {
+        "name": "/layer4/layer4.0/conv1/Conv",
+        "shape": [
+          512,
+          256,
+          3,
+          3
+        ],
+        "r": 4.079845428466797,
+        "log2_r": 2.0285144944005182
+      },
+      {
+        "name": "/layer4/layer4.0/conv2/Conv",
+        "shape": [
+          512,
+          512,
+          3,
+          3
+        ],
+        "r": 4.1692914962768555,
+        "log2_r": 2.059802241786903
+      },
+      {
+        "name": "/layer4/layer4.0/downsample/downsample.0/Conv",
+        "shape": [
+          512,
+          256,
+          1,
+          1
+        ],
+        "r": 4.499878406524658,
+        "log2_r": 2.1698860181814354
+      },
+      {
+        "name": "/layer4/layer4.1/conv1/Conv",
+        "shape": [
+          512,
+          512,
+          3,
+          3
+        ],
+        "r": 4.264753818511963,
+        "log2_r": 2.0924624648583046
+      },
+      {
+        "name": "/layer4/layer4.1/conv2/Conv",
+        "shape": [
+          512,
+          512,
+          3,
+          3
+        ],
+        "r": 3.1346306800842285,
+        "log2_r": 1.6482954757553046
+      }
+    ],
+    "top3": [
+      {
+        "name": "/conv1/Conv",
+        "shape": [
+          64,
+          3,
+          7,
+          7
+        ],
+        "r": 6.668345928192139,
+        "log2_r": 2.7373289477469736
+      },
+      {
+        "name": "/layer3/layer3.1/conv2/Conv",
+        "shape": [
+          256,
+          256,
+          3,
+          3
+        ],
+        "r": 5.895690441131592,
+        "log2_r": 2.55966077633789
+      },
+      {
+        "name": "/layer3/layer3.0/downsample/downsample.0/Conv",
+        "shape": [
+          256,
+          128,
+          1,
+          1
+        ],
+        "r": 4.920561790466309,
+        "log2_r": 2.2988230403714724
+      }
+    ],
+    "n_conv": 20,
+    "median_r": 3.444852828979492,
+    "median_log2_r": 1.7844423494210573
+  }
+}

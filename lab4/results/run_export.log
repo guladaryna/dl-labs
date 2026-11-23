@@ -1,0 +1,12 @@
+Поділ train: 1200 / 11993084, очікується 1200 / 11993084 → збіг: True
+Поділ test: 1502 / 33351444, очікується 1502 / 33351444 → збіг: True
+Модель: frozen, зерно 3, img_size 160, класи ['buildings', 'forest', 'glacier', 'mountain', 'sea', 'street']
+
+=== Пункт 1. Експорт і перевірка відповідності ===
+Завантаження 1502 зображень test…
+Експорт: 0.56 с, 44.71 МБ; Conv = 20, BatchNormalization = 0
+max|z_ONNX − z_PyTorch| = 1.168e-05; збіг класів = 1.0000
+macro-F1: PyTorch 0.8919, ONNX FP32 0.8919, ЛР3 0.8919
+Контроль: {'max_logit_diff_below_1e-3': True, 'class_match_is_1': True, 'f1_torch_equals_onnx': True, 'f1_equals_lab3': True, 'conv_is_20': True, 'batchnorm_is_0': True}
+
+Результати: lab4_results.json
