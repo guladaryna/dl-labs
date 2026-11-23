@@ -590,5 +590,32 @@
     "n_conv": 20,
     "median_r": 3.444852828979492,
     "median_log2_r": 1.7844423494210573
+  },
+  "per_tensor": {
+    "file": "lab4_int8_per_tensor.onnx",
+    "quantize_static_time_s": 2.6375422999844886,
+    "file_mb": 11.233898,
+    "quality": {
+      "macro_f1": 0.8930594372769863,
+      "accuracy": 0.8914780292942743,
+      "agreement": 0.9806924101198402,
+      "b": 15,
+      "c": 13,
+      "delta_acc": 0.0013315579227696406,
+      "se_delta_acc": 0.0035229711199262193,
+      "noise_threshold_2sqrt_bc": 10.583005244258363,
+      "differs_from_noise": false
+    },
+    "diagnostic_qdq_simulated_in_float": {
+      "macro_f1": 0.8911033872464434,
+      "accuracy": 0.8894806924101198,
+      "agreement": 0.9866844207723036,
+      "b": 9,
+      "c": 10,
+      "delta_acc": -0.0006657789613848203,
+      "se_delta_acc": 0.0029020632114119,
+      "noise_threshold_2sqrt_bc": 8.717797887081348,
+      "differs_from_noise": false
+    }
   }
 }

@@ -1,0 +1,12 @@
+Поділ train: 1200 / 11993084, очікується 1200 / 11993084 → збіг: True
+Поділ test: 1502 / 33351444, очікується 1502 / 33351444 → збіг: True
+Модель: frozen, зерно 3, img_size 160, класи ['buildings', 'forest', 'glacier', 'mountain', 'sea', 'street']
+
+=== Пункт 4. INT8 з потензорними вагами ===
+Калібрувальна вибірка: 200 зображень, сума імен 1921470, за класами {'buildings': 40, 'forest': 35, 'glacier': 36, 'mountain': 33, 'sea': 29, 'street': 27}
+  очікується 200, 1921470, {'buildings': 40, 'forest': 35, 'glacier': 36, 'mountain': 33, 'sea': 29, 'street': 27} → збіг: True
+Завантаження 1502 зображень test…
+Діагностика: per-tensor без оптимізацій графа (QDQ у float): згода 0.9867, accuracy 0.8895, macro-F1 0.8911, b = 9, c = 10
+INT8 per-tensor: macro-F1 0.8931, accuracy 0.8915, згода 0.9807, b = 15, c = 13, Δacc = +0.0013 ± 0.0035, |b − c| = 2 vs 2√(b + c) = 10.58 → відрізняється від шуму: False
+
+Результати: lab4_results.json

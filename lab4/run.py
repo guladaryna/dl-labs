@@ -232,9 +232,18 @@ def step_per_tensor(lab):
     z_pt = model_tools.onnx_logits(model_tools.make_session(lab.int8_pt), lab.test_images())
     np.save(lab.results_dir / "test_logits_int8_per_tensor.npy", z_pt)
     row = metrics.quality_row(z_pt, z_fp32, lab.targets)
+
+    # Та сама діагностика, що в пункті 3: per-tensor без цілочисельних ядер (QDQ у float).
+    session_sim = model_tools.make_session(lab.int8_pt, disable_graph_optimizations=True)
+    sim_row = metrics.quality_row(model_tools.onnx_logits(session_sim, lab.test_images()), z_fp32, lab.targets)
+
     lab.results["per_tensor"] = {"file": lab.int8_pt.name, "quantize_static_time_s": quant_s,
-                                 "file_mb": file_mb(lab.int8_pt), "quality": row}
+                                 "file_mb": file_mb(lab.int8_pt), "quality": row,
+                                 "diagnostic_qdq_simulated_in_float": sim_row}
     lab.save()
+    print(f"Діагностика: per-tensor без оптимізацій графа (QDQ у float): згода {sim_row['agreement']:.4f}, "
+          f"accuracy {sim_row['accuracy']:.4f}, macro-F1 {sim_row['macro_f1']:.4f}, "
+          f"b = {sim_row['b']}, c = {sim_row['c']}")
     print(f"INT8 per-tensor: macro-F1 {row['macro_f1']:.4f}, accuracy {row['accuracy']:.4f}, "
           f"згода {row['agreement']:.4f}, b = {row['b']}, c = {row['c']}, "
           f"Δacc = {row['delta_acc']:+.4f} ± {row['se_delta_acc']:.4f}, "
