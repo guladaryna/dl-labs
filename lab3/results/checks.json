@@ -1,0 +1,196 @@
+{
+  "initial_loss": [
+    {
+      "regime": "scratch",
+      "L0": 2.0478851795196533,
+      "ln6": 1.791759469228055,
+      "L0_minus_ln6": 0.25612571029159836,
+      "logit_std": 0.48824411630630493,
+      "mean_max_softmax": 0.2873809039592743
+    },
+    {
+      "regime": "frozen",
+      "L0": 1.9243946075439453,
+      "ln6": 1.791759469228055,
+      "L0_minus_ln6": 0.13263513831589036,
+      "logit_std": 0.6143274307250977,
+      "mean_max_softmax": 0.32053935527801514
+    }
+  ],
+  "params": {
+    "scratch": {
+      "total": 11179590,
+      "trainable": 11179590,
+      "groups": [
+        {
+          "params": 11179590,
+          "lr": 0.003,
+          "weight_decay": 0.0001
+        }
+      ],
+      "frozen_tensors_in_optimizer": 0,
+      "match": true
+    },
+    "frozen": {
+      "total": 11179590,
+      "trainable": 3078,
+      "groups": [
+        {
+          "params": 3078,
+          "lr": 0.003,
+          "weight_decay": 0.0001
+        }
+      ],
+      "frozen_tensors_in_optimizer": 0,
+      "match": true
+    },
+    "unfreeze": {
+      "total": 11179590,
+      "trainable": 8396806,
+      "groups": [
+        {
+          "params": 3078,
+          "lr": 0.003,
+          "weight_decay": 0.0001
+        },
+        {
+          "params": 8393728,
+          "lr": 0.0003,
+          "weight_decay": 0.0001
+        }
+      ],
+      "frozen_tensors_in_optimizer": 0,
+      "match": true
+    }
+  },
+  "mode_checks": [
+    {
+      "regime": "frozen",
+      "set_train_mode": true,
+      "modules": [
+        {
+          "module": "conv1",
+          "params_changed": "ні",
+          "bn_stats_changed": "немає BN",
+          "matches_expected": "так"
+        },
+        {
+          "module": "bn1",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer1",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer2",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer3",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer4",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "fc",
+          "params_changed": "так",
+          "bn_stats_changed": "немає BN",
+          "matches_expected": "так"
+        }
+      ],
+      "step_losses": [
+        1.9243946075439453,
+        1.7650938034057617,
+        1.6138395071029663,
+        1.3872827291488647,
+        1.2887051105499268
+      ],
+      "layer1.0.bn1": {
+        "running_mean_max_abs_change": 0.0,
+        "running_var_max_abs_change": 0.0,
+        "num_batches_tracked": [
+          0,
+          0
+        ]
+      },
+      "all_match": true
+    },
+    {
+      "regime": "unfreeze",
+      "set_train_mode": true,
+      "modules": [
+        {
+          "module": "conv1",
+          "params_changed": "ні",
+          "bn_stats_changed": "немає BN",
+          "matches_expected": "так"
+        },
+        {
+          "module": "bn1",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer1",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer2",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer3",
+          "params_changed": "ні",
+          "bn_stats_changed": "ні",
+          "matches_expected": "так"
+        },
+        {
+          "module": "layer4",
+          "params_changed": "так",
+          "bn_stats_changed": "так",
+          "matches_expected": "так"
+        },
+        {
+          "module": "fc",
+          "params_changed": "так",
+          "bn_stats_changed": "немає BN",
+          "matches_expected": "так"
+        }
+      ],
+      "step_losses": [
+        1.8967175483703613,
+        1.3415417671203613,
+        1.1650596857070923,
+        0.7262272834777832,
+        0.6561396718025208
+      ],
+      "layer1.0.bn1": {
+        "running_mean_max_abs_change": 0.0,
+        "running_var_max_abs_change": 0.0,
+        "num_batches_tracked": [
+          0,
+          0
+        ]
+      },
+      "all_match": true
+    }
+  ]
+}

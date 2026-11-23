@@ -1,0 +1,195 @@
+{
+  "table": [
+    {
+      "label": "buildings",
+      "part": "train",
+      "count": 200,
+      "sum": 1996761,
+      "expected_count": 200,
+      "expected_sum": 1996761,
+      "match": true
+    },
+    {
+      "label": "buildings",
+      "part": "validation",
+      "count": 218,
+      "sum": 4837323,
+      "expected_count": 218,
+      "expected_sum": 4837323,
+      "match": true
+    },
+    {
+      "label": "buildings",
+      "part": "test",
+      "count": 219,
+      "sum": 4837559,
+      "expected_count": 219,
+      "expected_sum": 4837559,
+      "match": true
+    },
+    {
+      "label": "forest",
+      "part": "train",
+      "count": 200,
+      "sum": 2032625,
+      "expected_count": 200,
+      "expected_sum": 2032625,
+      "match": true
+    },
+    {
+      "label": "forest",
+      "part": "validation",
+      "count": 237,
+      "sum": 5276962,
+      "expected_count": 237,
+      "expected_sum": 5276962,
+      "match": true
+    },
+    {
+      "label": "forest",
+      "part": "test",
+      "count": 237,
+      "sum": 5291326,
+      "expected_count": 237,
+      "expected_sum": 5291326,
+      "match": true
+    },
+    {
+      "label": "glacier",
+      "part": "train",
+      "count": 200,
+      "sum": 2183923,
+      "expected_count": 200,
+      "expected_sum": 2183923,
+      "match": true
+    },
+    {
+      "label": "glacier",
+      "part": "validation",
+      "count": 276,
+      "sum": 6135652,
+      "expected_count": 276,
+      "expected_sum": 6135652,
+      "match": true
+    },
+    {
+      "label": "glacier",
+      "part": "test",
+      "count": 277,
+      "sum": 6157250,
+      "expected_count": 277,
+      "expected_sum": 6157250,
+      "match": true
+    },
+    {
+      "label": "mountain",
+      "part": "train",
+      "count": 200,
+      "sum": 1950345,
+      "expected_count": 200,
+      "expected_sum": 1950345,
+      "match": true
+    },
+    {
+      "label": "mountain",
+      "part": "validation",
+      "count": 262,
+      "sum": 5789535,
+      "expected_count": 262,
+      "expected_sum": 5789535,
+      "match": true
+    },
+    {
+      "label": "mountain",
+      "part": "test",
+      "count": 263,
+      "sum": 5849765,
+      "expected_count": 263,
+      "expected_sum": 5849765,
+      "match": true
+    },
+    {
+      "label": "sea",
+      "part": "train",
+      "count": 200,
+      "sum": 1987613,
+      "expected_count": 200,
+      "expected_sum": 1987613,
+      "match": true
+    },
+    {
+      "label": "sea",
+      "part": "validation",
+      "count": 255,
+      "sum": 5655068,
+      "expected_count": 255,
+      "expected_sum": 5655068,
+      "match": true
+    },
+    {
+      "label": "sea",
+      "part": "test",
+      "count": 255,
+      "sum": 5668011,
+      "expected_count": 255,
+      "expected_sum": 5668011,
+      "match": true
+    },
+    {
+      "label": "street",
+      "part": "train",
+      "count": 200,
+      "sum": 1841817,
+      "expected_count": 200,
+      "expected_sum": 1841817,
+      "match": true
+    },
+    {
+      "label": "street",
+      "part": "validation",
+      "count": 250,
+      "sum": 5541845,
+      "expected_count": 250,
+      "expected_sum": 5541845,
+      "match": true
+    },
+    {
+      "label": "street",
+      "part": "test",
+      "count": 251,
+      "sum": 5547533,
+      "expected_count": 251,
+      "expected_sum": 5547533,
+      "match": true
+    },
+    {
+      "label": "Разом",
+      "part": "train",
+      "count": 1200,
+      "sum": 11993084,
+      "expected_count": 1200,
+      "expected_sum": 11993084,
+      "match": true
+    },
+    {
+      "label": "Разом",
+      "part": "validation",
+      "count": 1498,
+      "sum": 33236385,
+      "expected_count": 1498,
+      "expected_sum": 33236385,
+      "match": true
+    },
+    {
+      "label": "Разом",
+      "part": "test",
+      "count": 1502,
+      "sum": 33351444,
+      "expected_count": 1502,
+      "expected_sum": 33351444,
+      "match": true
+    }
+  ],
+  "no_overlap": true,
+  "sha256": "b827abdece5aaebda23cfa5129c99f8aecbdef3ef27dce5c9ae53b88aab45d46"
+}

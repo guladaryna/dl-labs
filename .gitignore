@@ -7,3 +7,5 @@ creditcard.csv
 lab2/results_rerun/
 CLAUDE.md
 .claude/
+lab3/runs/*/weights.pt
+lab3/rerun/

@@ -1,0 +1,22 @@
+[project]
+name = "lab3"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.5",
+    "pillow>=13.0.0",
+    "scikit-learn>=1.9.1",
+    "torch>=2.11.0",
+    "torchvision>=0.26.0",
+]
+
+# torch/torchvision з CUDA-збіркою на Windows і Linux (на macOS — звичайні колеса з PyPI, MPS/CPU)
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu128", marker = "sys_platform != 'darwin'" }]
+torchvision = [{ index = "pytorch-cu128", marker = "sys_platform != 'darwin'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
