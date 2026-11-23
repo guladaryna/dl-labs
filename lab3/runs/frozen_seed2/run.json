@@ -1,0 +1,170 @@
+{
+  "regime": "frozen",
+  "seed": 2,
+  "settings": {
+    "transforms": {
+      "train": "Compose(\n    RandomResizedCrop(size=(160, 160), scale=(0.7, 1.0), ratio=(0.75, 1.3333), interpolation=bilinear, antialias=True)\n    RandomHorizontalFlip(p=0.5)\n    ToTensor()\n    Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))\n)",
+      "validation_test": "Compose(\n    Resize(size=(160, 160), interpolation=bilinear, max_size=None, antialias=True)\n    ToTensor()\n    Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))\n)",
+      "img_size": 160,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "RandomResizedCrop": {
+        "size": 160,
+        "scale": [
+          0.7,
+          1.0
+        ],
+        "ratio": [
+          0.75,
+          1.3333333333333333
+        ],
+        "interpolation": "bilinear",
+        "antialias": true
+      },
+      "RandomHorizontalFlip": {
+        "p": 0.5
+      },
+      "Resize": {
+        "size": [
+          160,
+          160
+        ],
+        "interpolation": "bilinear",
+        "antialias": true
+      }
+    },
+    "model": {
+      "arch": "torchvision.models.resnet18",
+      "weights": "ResNet18_Weights.IMAGENET1K_V1",
+      "fc": "torch.nn.Linear(512, 6), стандартна ініціалізація",
+      "trainable_modules": [
+        "fc"
+      ],
+      "eval_modules_during_training": [
+        "conv1",
+        "bn1",
+        "layer1",
+        "layer2",
+        "layer3",
+        "layer4"
+      ],
+      "bn_momentum": 0.1,
+      "bn_eps": 1e-05,
+      "params": {
+        "total": 11179590,
+        "trainable": 3078,
+        "groups": [
+          {
+            "params": 3078,
+            "lr": 0.003,
+            "weight_decay": 0.0001
+          }
+        ],
+        "frozen_tensors_in_optimizer": 0
+      }
+    },
+    "optimizer": {
+      "class": "torch.optim.AdamW",
+      "defaults": {
+        "lr": 0.001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "weight_decay": 0.0001,
+        "amsgrad": false,
+        "maximize": false,
+        "foreach": null,
+        "capturable": false,
+        "differentiable": false,
+        "fused": null,
+        "decoupled_weight_decay": true
+      },
+      "groups": [
+        {
+          "modules": "fc",
+          "lr": 0.003,
+          "weight_decay": 0.0001
+        }
+      ],
+      "head_lr": 0.003,
+      "backbone_lr": 0.0003,
+      "weight_decay": 0.0001,
+      "lr_schedule": null,
+      "grad_clipping": null,
+      "mixed_precision": false,
+      "label_smoothing": 0.0,
+      "class_weights": null,
+      "early_stopping": null
+    },
+    "loop": {
+      "epochs": 8,
+      "train_batch_size": 32,
+      "shuffle": true,
+      "drop_last": false,
+      "num_workers": 0,
+      "generator": null,
+      "steps_per_epoch": 38,
+      "total_steps": 304,
+      "eval_batch_size": 64,
+      "loss": "CrossEntropyLoss(reduction='mean')",
+      "epoch_loss": "sum_b L_b*|b| / 1200, L_b до кроку оптимізатора",
+      "train_mode": "set_train_mode: model.train(), потім eval() для eval_modules",
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "dtype": "float32"
+    }
+  },
+  "git": {
+    "commit": "8abe28cd421ea1e3e499b6a856a832bd3e39360f",
+    "uncommitted_changes": false
+  },
+  "split_sha256": "b827abdece5aaebda23cfa5129c99f8aecbdef3ef27dce5c9ae53b88aab45d46",
+  "versions": {
+    "python": "3.12.16",
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "2.5.5"
+  },
+  "device": {
+    "type": "cuda",
+    "name": "NVIDIA GeForce MX550"
+  },
+  "os": "Windows-11-10.0.26300-SP0",
+  "train_loss": [
+    0.6516484721501669,
+    0.2803691499431928,
+    0.24008986075719196,
+    0.21335917914907138,
+    0.20254622677961986,
+    0.1830613312125206,
+    0.17146112342675526,
+    0.17565551737944285
+  ],
+  "val_macro_f1": [
+    0.8816264967248513,
+    0.8849338238693268,
+    0.8816294084865054,
+    0.8747753714730737,
+    0.8794458281898109,
+    0.8837993490154835,
+    0.8758980841850085,
+    0.8785003294351141
+  ],
+  "final_val_macro_f1": 0.8785003294351141,
+  "train_seconds": 20.154456200019922,
+  "train_and_val_seconds": 42.53682310000295,
+  "val_logits_shape": [
+    1498,
+    6
+  ]
+}

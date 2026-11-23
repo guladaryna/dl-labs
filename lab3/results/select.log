@@ -1,0 +1,17 @@
+Пристрій: cuda (NVIDIA GeForce MX550), torch 2.11.0+cu128
+
+=== Пункт 1. Контроль поділу ===
+Клас                      train           validation                 test
+buildings         200 / 1996761        218 / 4837323        219 / 4837559
+forest            200 / 2032625        237 / 5276962        237 / 5291326
+glacier           200 / 2183923        276 / 6135652        277 / 6157250
+mountain          200 / 1950345        262 / 5789535        263 / 5849765
+sea               200 / 1987613        255 / 5655068        255 / 5668011
+street            200 / 1841817        250 / 5541845        251 / 5547533
+Разом           1200 / 11993084      1498 / 33236385      1502 / 33351444
+Усі 21 значення (18 клітинок + 3 підсумки) збігаються з умовою: True; файлів у двох частинах немає: True
+split.csv SHA-256: b827abdece5aaebda23cfa5129c99f8aecbdef3ef27dce5c9ae53b88aab45d46
+Середнє macro-F1 validation scratch : 0.3793
+Середнє macro-F1 validation frozen  : 0.8838
+Середнє macro-F1 validation unfreeze: 0.8737
+Вибрано: frozen, зерно 3 → lab3_model.pt

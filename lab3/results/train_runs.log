@@ -1,0 +1,90 @@
+Пристрій: cuda (NVIDIA GeForce MX550), torch 2.11.0+cu128
+
+=== Пункт 1. Контроль поділу ===
+Клас                      train           validation                 test
+buildings         200 / 1996761        218 / 4837323        219 / 4837559
+forest            200 / 2032625        237 / 5276962        237 / 5291326
+glacier           200 / 2183923        276 / 6135652        277 / 6157250
+mountain          200 / 1950345        262 / 5789535        263 / 5849765
+sea               200 / 1987613        255 / 5655068        255 / 5668011
+street            200 / 1841817        250 / 5541845        251 / 5547533
+Разом           1200 / 11993084      1498 / 33236385      1502 / 33351444
+Усі 21 значення (18 клітинок + 3 підсумки) збігаються з умовою: True; файлів у двох частинах немає: True
+split.csv SHA-256: b827abdece5aaebda23cfa5129c99f8aecbdef3ef27dce5c9ae53b88aab45d46
+
+=== Запуск scratch, зерно 1 (NVIDIA GeForce MX550) ===
+  scratch seed 1 епоха 1: втрата 1.6390, macro-F1 val 0.3860
+  scratch seed 1 епоха 2: втрата 1.2839, macro-F1 val 0.3513
+  scratch seed 1 епоха 3: втрата 1.1900, macro-F1 val 0.4331
+  scratch seed 1 епоха 4: втрата 1.1284, macro-F1 val 0.4949
+  scratch seed 1 епоха 5: втрата 1.0769, macro-F1 val 0.5226
+  scratch seed 1 епоха 6: втрата 1.0440, macro-F1 val 0.4206
+  scratch seed 1 епоха 7: втрата 1.0276, macro-F1 val 0.5467
+  scratch seed 1 епоха 8: втрата 0.9961, macro-F1 val 0.3793
+  F = 0.3793, час навчання 51.0 с
+
+=== Запуск frozen, зерно 1 (NVIDIA GeForce MX550) ===
+  frozen seed 1 епоха 1: втрата 0.6405, macro-F1 val 0.8781
+  frozen seed 1 епоха 2: втрата 0.2748, macro-F1 val 0.8885
+  frozen seed 1 епоха 3: втрата 0.2374, macro-F1 val 0.8810
+  frozen seed 1 епоха 4: втрата 0.2167, macro-F1 val 0.8792
+  frozen seed 1 епоха 5: втрата 0.1899, macro-F1 val 0.8842
+  frozen seed 1 епоха 6: втрата 0.1954, macro-F1 val 0.8846
+  frozen seed 1 епоха 7: втрата 0.1851, macro-F1 val 0.8864
+  frozen seed 1 епоха 8: втрата 0.1655, macro-F1 val 0.8842
+  F = 0.8842, час навчання 20.3 с
+
+=== Запуск frozen, зерно 2 (NVIDIA GeForce MX550) ===
+  frozen seed 2 епоха 1: втрата 0.6516, macro-F1 val 0.8816
+  frozen seed 2 епоха 2: втрата 0.2804, macro-F1 val 0.8849
+  frozen seed 2 епоха 3: втрата 0.2401, macro-F1 val 0.8816
+  frozen seed 2 епоха 4: втрата 0.2134, macro-F1 val 0.8748
+  frozen seed 2 епоха 5: втрата 0.2025, macro-F1 val 0.8794
+  frozen seed 2 епоха 6: втрата 0.1831, macro-F1 val 0.8838
+  frozen seed 2 епоха 7: втрата 0.1715, macro-F1 val 0.8759
+  frozen seed 2 епоха 8: втрата 0.1757, macro-F1 val 0.8785
+  F = 0.8785, час навчання 20.2 с
+
+=== Запуск frozen, зерно 3 (NVIDIA GeForce MX550) ===
+  frozen seed 3 епоха 1: втрата 0.6880, macro-F1 val 0.8858
+  frozen seed 3 епоха 2: втрата 0.2912, macro-F1 val 0.8890
+  frozen seed 3 епоха 3: втрата 0.2474, macro-F1 val 0.8925
+  frozen seed 3 епоха 4: втрата 0.2249, macro-F1 val 0.8726
+  frozen seed 3 епоха 5: втрата 0.2070, macro-F1 val 0.8767
+  frozen seed 3 епоха 6: втрата 0.2066, macro-F1 val 0.8766
+  frozen seed 3 епоха 7: втрата 0.1761, macro-F1 val 0.8900
+  frozen seed 3 епоха 8: втрата 0.1896, macro-F1 val 0.8886
+  F = 0.8886, час навчання 20.5 с
+
+=== Запуск unfreeze, зерно 1 (NVIDIA GeForce MX550) ===
+  unfreeze seed 1 епоха 1: втрата 0.5428, macro-F1 val 0.8956
+  unfreeze seed 1 епоха 2: втрата 0.1931, macro-F1 val 0.8874
+  unfreeze seed 1 епоха 3: втрата 0.1146, macro-F1 val 0.8750
+  unfreeze seed 1 епоха 4: втрата 0.0885, macro-F1 val 0.8947
+  unfreeze seed 1 епоха 5: втрата 0.0502, macro-F1 val 0.8975
+  unfreeze seed 1 епоха 6: втрата 0.0731, macro-F1 val 0.8935
+  unfreeze seed 1 епоха 7: втрата 0.0696, macro-F1 val 0.8858
+  unfreeze seed 1 епоха 8: втрата 0.0558, macro-F1 val 0.8554
+  F = 0.8554, час навчання 27.5 с
+
+=== Запуск unfreeze, зерно 2 (NVIDIA GeForce MX550) ===
+  unfreeze seed 2 епоха 1: втрата 0.5557, macro-F1 val 0.9014
+  unfreeze seed 2 епоха 2: втрата 0.1616, macro-F1 val 0.8981
+  unfreeze seed 2 епоха 3: втрата 0.1209, macro-F1 val 0.8944
+  unfreeze seed 2 епоха 4: втрата 0.0880, macro-F1 val 0.8950
+  unfreeze seed 2 епоха 5: втрата 0.1223, macro-F1 val 0.8917
+  unfreeze seed 2 епоха 6: втрата 0.1060, macro-F1 val 0.8947
+  unfreeze seed 2 епоха 7: втрата 0.0859, macro-F1 val 0.8861
+  unfreeze seed 2 епоха 8: втрата 0.0900, macro-F1 val 0.8823
+  F = 0.8823, час навчання 27.8 с
+
+=== Запуск unfreeze, зерно 3 (NVIDIA GeForce MX550) ===
+  unfreeze seed 3 епоха 1: втрата 0.5302, macro-F1 val 0.8081
+  unfreeze seed 3 епоха 2: втрата 0.2046, macro-F1 val 0.8990
+  unfreeze seed 3 епоха 3: втрата 0.1178, macro-F1 val 0.8822
+  unfreeze seed 3 епоха 4: втрата 0.0972, macro-F1 val 0.9061
+  unfreeze seed 3 епоха 5: втрата 0.0818, macro-F1 val 0.8945
+  unfreeze seed 3 епоха 6: втрата 0.0727, macro-F1 val 0.8854
+  unfreeze seed 3 епоха 7: втрата 0.0721, macro-F1 val 0.9011
+  unfreeze seed 3 епоха 8: втрата 0.1083, macro-F1 val 0.8834
+  F = 0.8834, час навчання 27.9 с

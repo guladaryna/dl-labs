@@ -1,0 +1,64 @@
+{
+  "regime": "frozen",
+  "set_train_mode": false,
+  "modules": [
+    {
+      "module": "conv1",
+      "params_changed": "ні",
+      "bn_stats_changed": "немає BN",
+      "matches_expected": "так"
+    },
+    {
+      "module": "bn1",
+      "params_changed": "ні",
+      "bn_stats_changed": "так",
+      "matches_expected": "ні"
+    },
+    {
+      "module": "layer1",
+      "params_changed": "ні",
+      "bn_stats_changed": "так",
+      "matches_expected": "ні"
+    },
+    {
+      "module": "layer2",
+      "params_changed": "ні",
+      "bn_stats_changed": "так",
+      "matches_expected": "ні"
+    },
+    {
+      "module": "layer3",
+      "params_changed": "ні",
+      "bn_stats_changed": "так",
+      "matches_expected": "ні"
+    },
+    {
+      "module": "layer4",
+      "params_changed": "ні",
+      "bn_stats_changed": "так",
+      "matches_expected": "ні"
+    },
+    {
+      "module": "fc",
+      "params_changed": "так",
+      "bn_stats_changed": "немає BN",
+      "matches_expected": "так"
+    }
+  ],
+  "step_losses": [
+    1.8869603872299194,
+    1.9456461668014526,
+    1.8442444801330566,
+    1.6837122440338135,
+    1.4074043035507202
+  ],
+  "layer1.0.bn1": {
+    "running_mean_max_abs_change": 0.09283614158630371,
+    "running_var_max_abs_change": 0.12031435966491699,
+    "num_batches_tracked": [
+      0,
+      5
+    ]
+  },
+  "all_match": false
+}

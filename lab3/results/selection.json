@@ -1,0 +1,9 @@
+{
+  "regime": "frozen",
+  "seed": 3,
+  "mean_val_macro_f1": {
+    "scratch": 0.37930871026132434,
+    "frozen": 0.8837657141829945,
+    "unfreeze": 0.8737068918417646
+  }
+}
