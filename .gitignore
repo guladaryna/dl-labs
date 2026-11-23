@@ -9,3 +9,4 @@ CLAUDE.md
 .claude/
 lab3/runs/*/weights.pt
 lab3/rerun/
+lab4/rerun/
